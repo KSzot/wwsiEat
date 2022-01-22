@@ -1,20 +1,6 @@
 import * as React from 'react';
-import {
-  Box,
-  Text,
-  Heading,
-  VStack,
-  FormControl,
-  Input,
-  Link,
-  Button,
-  HStack,
-  Center,
-  useTheme,
-  Container,
-  Flex,
-} from 'native-base';
-const WelcomeScreen = () => {
+import {Box, Text, Button, Center, useTheme, Flex} from 'native-base';
+const WelcomeScreen = ({navigation}: {navigation: any}) => {
   const {colors} = useTheme();
   return (
     <Box flex="1" bg="primary.50">
@@ -46,7 +32,8 @@ const WelcomeScreen = () => {
             size="lg"
             variant="outline"
             borderColor="success.500"
-            borderRadius="xl">
+            borderRadius="xl"
+            onPress={() => navigation.navigate('Register')}>
             <Text fontSize="xl" color="success.500">
               Rejestracja
             </Text>

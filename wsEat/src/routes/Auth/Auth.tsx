@@ -1,5 +1,8 @@
-import {WelcomeScreen} from '../../screens';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {WelcomeScreen, RegisterScreen} from '../../screens';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import * as React from 'react';
 
 const AuthStack = createNativeStackNavigator();
@@ -10,6 +13,11 @@ const Auth = () => {
         options={{headerShown: false}}
         name="Welcome"
         component={WelcomeScreen}
+      />
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Register"
+        component={RegisterScreen}
       />
     </AuthStack.Navigator>
   );
