@@ -12,10 +12,10 @@ const Header = ({onClick}: IHeader) => {
       bg="white"
       justify="space-between"
       alignItems="center">
-      <Text fontSize="md" color="gray.400" onPress={onClick}>
+      <Text fontSize="md" color="success.500">
         Zaloguj
       </Text>
-      <Text fontSize="md" color="success.500">
+      <Text fontSize="md" color="gray.400" onPress={onClick}>
         Rejestracja
       </Text>
     </Flex>

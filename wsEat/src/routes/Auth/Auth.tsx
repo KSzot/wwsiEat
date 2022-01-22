@@ -1,9 +1,10 @@
-import {WelcomeScreen, RegisterScreen} from '../../screens';
+import {WelcomeScreen, RegisterScreen, LoginScreen} from '../../screens';
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import * as React from 'react';
+import {color} from 'native-base/lib/typescript/theme/styled-system';
 
 const AuthStack = createNativeStackNavigator();
 const Auth = () => {
@@ -13,6 +14,11 @@ const Auth = () => {
         options={{headerShown: false}}
         name="Welcome"
         component={WelcomeScreen}
+      />
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Login"
+        component={LoginScreen}
       />
       <AuthStack.Screen
         options={{headerShown: false}}

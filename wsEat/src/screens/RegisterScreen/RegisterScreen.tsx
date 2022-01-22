@@ -20,20 +20,22 @@ import {Header, FormRegister} from './components';
 import {Platform} from 'react-native';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
+  const onHandleSwitchToLoginScreen = () => navigation.navigate('Login');
+  const onHandleSubmit = () => console.log('Submit');
   return (
     <KeyboardAvoidingView
       flex="1"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       bg="primary.50">
-      <ScrollView flex="1" bg="primary.50" marginBottom="4">
+      <ScrollView flex="1" bg="lightBlue.50" marginBottom="4">
         <Box
           bg="white"
-          borderBottomLeftRadius="xl"
-          borderBottomRightRadius="xl"
+          borderBottomLeftRadius="3xl"
+          borderBottomRightRadius="3xl"
           paddingX="2"
           paddingY="4">
-          <Header navigation={navigation} />
-          <FormRegister />
+          <Header onClick={onHandleSwitchToLoginScreen} />
+          <FormRegister onClick={onHandleSubmit} />
         </Box>
       </ScrollView>
     </KeyboardAvoidingView>

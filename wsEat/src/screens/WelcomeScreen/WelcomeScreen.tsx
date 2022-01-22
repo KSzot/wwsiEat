@@ -3,7 +3,7 @@ import {Box, Text, Button, Center, useTheme, Flex} from 'native-base';
 const WelcomeScreen = ({navigation}: {navigation: any}) => {
   const {colors} = useTheme();
   return (
-    <Box flex="1" bg="primary.50">
+    <Box flex="1" bg="lightBlue.50">
       <Center flex="1">
         <Text
           fontSize="6xl"
@@ -23,7 +23,12 @@ const WelcomeScreen = ({navigation}: {navigation: any}) => {
           Witaj!
         </Text>
         <Flex justify="center" marginX="10">
-          <Button size="lg" bg="success.500" marginBottom="3" borderRadius="xl">
+          <Button
+            size="lg"
+            bg="success.500"
+            marginBottom="3"
+            borderRadius="xl"
+            onPress={() => navigation.navigate('Login')}>
             <Text fontSize="xl" color="white">
               Logowanie
             </Text>
