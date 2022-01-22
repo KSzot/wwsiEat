@@ -4,7 +4,6 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import * as React from 'react';
-import {color} from 'native-base/lib/typescript/theme/styled-system';
 
 const AuthStack = createNativeStackNavigator();
 const Auth = () => {

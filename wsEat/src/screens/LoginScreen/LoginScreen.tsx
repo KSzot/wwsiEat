@@ -4,7 +4,7 @@ import {Platform} from 'react-native';
 import {Header, FormLogin} from './components';
 const LoginScreen = ({navigation}: {navigation: any}) => {
   const onHandleSwitchToRegister = () => navigation.navigate('Register');
-  const handleSubmit = () => console.log('Login');
+  const handleSubmit = () => navigation.navigate('Main');
   return (
     <KeyboardAvoidingView
       flex="1"
