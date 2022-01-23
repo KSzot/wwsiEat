@@ -9,7 +9,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
     <KeyboardAvoidingView
       flex="1"
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      bg="primary.50">
+      bg="lightBlue.50">
       <ScrollView flex="1" bg="lightBlue.50" marginBottom="4">
         <Box
           bg="white"

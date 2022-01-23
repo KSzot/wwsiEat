@@ -1,12 +1,14 @@
 import * as React from 'react';
-import {Box, StatusBar, Text} from 'native-base';
-
+import {ScrollView, StatusBar, Text, FlatList} from 'native-base';
+import {Header, Popular, Sale} from './components';
 const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
-    <Box>
+    <ScrollView flex="1" bg="lightBlue.50">
       <StatusBar backgroundColor="#22c55e" />
-      <Text> HomeScreen</Text>
-    </Box>
+      <Header navigation={navigation} />
+      <Popular navigation={navigation} />
+      <Sale navigation={navigation} />
+    </ScrollView>
   );
 };
 

@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Auth from '../Auth/Auth';
 import * as React from 'react';
 import Main from '../Main/Main';
-import {ShoppingCart} from '../../screens';
+import {ShoppingCart, DetailsMeal} from '../../screens';
 
 const RootStack = createNativeStackNavigator();
 
@@ -35,6 +35,21 @@ const Root = () => {
           }}
           name="ShoppingCart"
           component={ShoppingCart}
+        />
+        <RootStack.Screen
+          options={{
+            title: 'Szczegóły',
+            headerStyle: {
+              backgroundColor: '#22c55e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTitleAlign: 'center',
+          }}
+          name="detailsMeal"
+          component={DetailsMeal}
         />
       </RootStack.Navigator>
     </NavigationContainer>

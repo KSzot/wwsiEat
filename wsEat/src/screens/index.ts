@@ -5,5 +5,5 @@ export {default as HomeScreen} from './HomeScreen/HomeScreen';
 export {default as ShoppingCart} from './ShoppingCart/ShoppingCart';
 export {default as FavouriteMeal} from './FavouriteMeal/FavouriteMeal';
 export {default as Settings} from './Settings/Settings';
-
 export {default as TransactionHistory} from './TransactionHistory/TransactionHistory';
+export {default as DetailsMeal} from './DetailsMeal/DetailsMeal';
