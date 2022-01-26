@@ -199,6 +199,11 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+      implementation platform('com.google.firebase:firebase-bom:29.0.4')
+
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
@@ -235,3 +240,6 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
+apply plugin: 'com.android.application'
+
+apply plugin: 'com.google.gms.google-services' // <- Add this line

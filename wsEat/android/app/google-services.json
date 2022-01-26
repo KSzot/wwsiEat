@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "736270331036",
+    "project_id": "wseat-dd4b7",
+    "storage_bucket": "wseat-dd4b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736270331036:android:3d5929f51499ba81da5159",
+        "android_client_info": {
+          "package_name": "au.com.reactnativewseat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736270331036-rv3f6imu2sr9bpcme0t57dvv2v91mt3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMiGwiQ9-AsraHxq6vapGVcuDzY6Pq6KY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736270331036-rv3f6imu2sr9bpcme0t57dvv2v91mt3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736270331036:android:8f23e39d98feb580da5159",
+        "android_client_info": {
+          "package_name": "com.wseat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736270331036-rv3f6imu2sr9bpcme0t57dvv2v91mt3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMiGwiQ9-AsraHxq6vapGVcuDzY6Pq6KY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736270331036-rv3f6imu2sr9bpcme0t57dvv2v91mt3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
