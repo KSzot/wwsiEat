@@ -16,7 +16,7 @@ import {
   Spinner,
   KeyboardAvoidingView,
   ScrollView,
-  Alert
+  Alert,
 } from 'native-base';
 import {Header, FormRegister} from './components';
 import {Inputs} from './components/FormRegister';
@@ -25,6 +25,19 @@ import auth from '@react-native-firebase/auth';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
   const [isLoading, setIsLoading] = React.useState(false);
+  const [showWarning, setShowWarning] = React.useState(false);
+  const [warningText, setWarningText] = React.useState('');
+
+  React.useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showWarning) {
+      timer = setTimeout(() => {
+        setShowWarning(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [showWarning]);
+
   const onHandleSwitchToLoginScreen = () => navigation.navigate('Login');
   const onHandleSubmit = async (data: Inputs) => {
     setIsLoading(true);
@@ -42,11 +55,13 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
     } catch (error: any) {
       setIsLoading(false);
       if (error?.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
+        setWarningText('Ten e-mail jest juz w uzyciu');
+        setShowWarning(true);
       }
 
       if (error?.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
+        setWarningText('Ten e-mail jest niepoprawny');
+        setShowWarning(true);
       }
     }
   };
@@ -78,6 +93,24 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
           )}
         </Box>
       </ScrollView>
+      {showWarning && (
+        <Alert
+          w="90%"
+          maxW="400"
+          status="warning"
+          colorScheme="warning"
+          position="relative"
+          bottom="10">
+          <VStack space={2} flexShrink={1} w="100%">
+            <HStack space={2} flexShrink={1}>
+              <Alert.Icon mt="1" />
+              <Text fontSize="md" color="coolGray.800">
+                {warningText}
+              </Text>
+            </HStack>
+          </VStack>
+        </Alert>
+      )}
     </KeyboardAvoidingView>
   );
 };

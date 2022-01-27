@@ -13,11 +13,12 @@ import {Platform} from 'react-native';
 import {Header, FormLogin} from './components';
 import auth from '@react-native-firebase/auth';
 import {Inputs} from './components/FormLogin';
+import {useDispatch, useSelector} from 'react-redux';
 const LoginScreen = ({navigation}: {navigation: any}) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [showWarning, setShowWarning] = React.useState(false);
   const [warningText, setWarningText] = React.useState('');
-
+  const currentUser = useSelector((store: RootStore) => store.User);
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
     if (showWarning) {
@@ -40,7 +41,7 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
       setIsLoading(false);
     } catch (error: any) {
       setIsLoading(false);
-      console.log(error);
+
       if (error?.code === 'auth/wrong-password') {
         setShowWarning(true);
         setWarningText('Podano zle haslo');
