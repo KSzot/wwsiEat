@@ -4,7 +4,22 @@ import {TouchableOpacity} from 'react-native';
 import {CircleItem} from '../../../components';
 import {renderCategoryList} from '../mockData';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import firestore from '@react-native-firebase/firestore';
+
 const Header = ({navigation}: {navigation: any}) => {
+  const [data, setData] = React.useState<any[] | undefined>(undefined);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await firestore()
+        .collection('Category')
+        .doc('All')
+        .get();
+
+      setData(response.data()?.allCategory as any);
+      console.log(response.data());
+    };
+    fetchData();
+  }, []);
   return (
     <Box marginTop="2">
       <Flex direction="row" alignItems="center" justifyContent="space-between">
@@ -25,19 +40,21 @@ const Header = ({navigation}: {navigation: any}) => {
           </Flex>
         </TouchableOpacity>
       </Flex>
-      <FlatList
-        horizontal
-        data={renderCategoryList}
-        keyExtractor={item => String(item.id)}
-        renderItem={({item}) => (
-          <CircleItem
-            name={item.name}
-            onClick={id => {}}
-            iconName={item.iconName}
-            id={item.id}
-          />
-        )}
-      />
+      {data && (
+        <FlatList
+          horizontal
+          data={data}
+          keyExtractor={item => String(item.id)}
+          renderItem={({item}) => (
+            <CircleItem
+              name={item.name}
+              onClick={id => {}}
+              iconName={item.iconName}
+              id={item.id}
+            />
+          )}
+        />
+      )}
     </Box>
   );
 };

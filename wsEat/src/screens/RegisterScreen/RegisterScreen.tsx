@@ -22,6 +22,7 @@ import {Header, FormRegister} from './components';
 import {Inputs} from './components/FormRegister';
 import {Platform} from 'react-native';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const RegisterScreen = ({navigation}: {navigation: any}) => {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -50,6 +51,10 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
       await response.user.updateProfile({
         displayName: data.name,
       });
+      await firestore()
+        .collection('Users')
+        .doc(response.user.uid)
+        .set({id: response.user.uid, name: data.name, email: data.email});
       setIsLoading(false);
       onHandleSwitchToLoginScreen();
     } catch (error: any) {

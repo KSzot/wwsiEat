@@ -14,11 +14,15 @@ import {Header, FormLogin} from './components';
 import auth from '@react-native-firebase/auth';
 import {Inputs} from './components/FormLogin';
 import {useDispatch, useSelector} from 'react-redux';
+import {loginUser} from '../../store/actions/userActions/userActions';
+import {CommonActions} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+
 const LoginScreen = ({navigation}: {navigation: any}) => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [showWarning, setShowWarning] = React.useState(false);
   const [warningText, setWarningText] = React.useState('');
-  const currentUser = useSelector((store: RootStore) => store.User);
+  const dispatch = useDispatch();
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
     if (showWarning) {
@@ -37,8 +41,19 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
         data.email,
         data.password,
       );
-      console.log(response);
+      const response2 = await firestore()
+        .collection('Users')
+        .doc(response.user.uid)
+        .get();
+      dispatch(loginUser(response2.data()));
+
       setIsLoading(false);
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [{name: 'Main'}],
+        }),
+      );
     } catch (error: any) {
       setIsLoading(false);
 
@@ -55,8 +70,6 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
         setWarningText('Niepoprawny e-mail');
       }
     }
-
-    //navigation.navigate('Main');
   };
   return (
     <KeyboardAvoidingView
