@@ -20,6 +20,11 @@ const Header = ({navigation}: {navigation: any}) => {
     };
     fetchData();
   }, []);
+  const onHandleClick = (id: number) =>
+    navigation.navigate('selectedCategory', {
+      itemId: id,
+      name: 'Tu bedzie tytul',
+    });
   return (
     <Box marginTop="2">
       <Flex direction="row" alignItems="center" justifyContent="space-between">
@@ -48,7 +53,7 @@ const Header = ({navigation}: {navigation: any}) => {
           renderItem={({item}) => (
             <CircleItem
               name={item.name}
-              onClick={id => {}}
+              onClick={id => onHandleClick(id)}
               iconName={item.iconName}
               id={item.id}
             />

@@ -35,7 +35,7 @@ const Main = () => {
           </TouchableOpacity>
         ),
         tabBarIcon: ({focused, color, size}) => {
-          let iconName;
+          let iconName = 'storefront';
 
           if (route.name === 'Home') {
             iconName = 'storefront';
