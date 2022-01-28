@@ -2,12 +2,46 @@ import * as React from 'react';
 import {ScrollView, Text, Box, Icon, Flex, Button} from 'native-base';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import firestore from '@react-native-firebase/firestore';
+import {useDispatch, useSelector} from 'react-redux';
 
 const DetailsMeal = ({route}: {route: any}) => {
   const {item} = route.params;
-  const [favorite, setFavorite] = React.useState(item.isFavorite);
+  const [favorite, setFavorite] = React.useState(false);
   const [count, setCount] = React.useState(1);
+  const currentUser = useSelector((store: RootStore) => store.User.user);
+  const firstUpdate = React.useRef(true);
+  React.useEffect(() => {
+    if (firstUpdate.current) {
+      setFavorite(currentUser.favorite.includes(item.id));
+      firstUpdate.current = false;
+      return;
+    }
+    const updateFavoriteMeal = async () => {
+      const isFavorite = currentUser.favorite.includes(item.id);
 
+      if (favorite === true && isFavorite === false) {
+        await firestore()
+          .collection('Users')
+          .doc(currentUser.id)
+          .set(
+            {
+              favorite: firestore.FieldValue.arrayUnion(item.id),
+            },
+            {merge: true},
+          );
+      }
+      if (favorite === false && isFavorite === true) {
+        await firestore()
+          .collection('Users')
+          .doc(currentUser.id)
+          .update({
+            favorite: firestore.FieldValue.arrayRemove(item.id),
+          });
+      }
+    };
+    updateFavoriteMeal();
+  }, [favorite]);
   const increaseCount = () => {
     setCount(prev => prev + 1);
   };

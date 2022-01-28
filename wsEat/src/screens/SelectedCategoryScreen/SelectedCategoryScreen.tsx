@@ -12,6 +12,9 @@ import {TouchableOpacity, SafeAreaView} from 'react-native';
 import {SquareItem} from '../../components';
 import {renderPopular} from '../HomeScreen/mockData';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import firestore from '@react-native-firebase/firestore';
+import {useDispatch, useSelector} from 'react-redux';
+
 const SelectedCategoryScreen = ({
   navigation,
   route,
@@ -19,10 +22,26 @@ const SelectedCategoryScreen = ({
   navigation: any;
   route: any;
 }) => {
-  const {itemId, name} = route.params;
+  const currentUser = useSelector((store: RootStore) => store.User.user);
+
+  const {itemId} = route.params;
+  const [data, setData] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await firestore()
+          .collection('Category')
+          .doc(itemId)
+          .get();
+        setData(response.data()?.breakfast as any);
+        console.log(response.data());
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
 
   const onHandleClick = (id: number) => {
-    const item = renderPopular.find(el => el.id === id);
+    const item = data.find(el => el.id === id);
     navigation.navigate('detailsMeal', {item: item});
   };
   return (
@@ -31,7 +50,7 @@ const SelectedCategoryScreen = ({
       <StatusBar backgroundColor="#22c55e" />
 
       <FlatList
-        data={renderPopular}
+        data={data}
         numColumns={3}
         keyExtractor={item => String(item.id)}
         renderItem={({item}) => (
@@ -41,7 +60,7 @@ const SelectedCategoryScreen = ({
             imgName={item.imgName}
             id={item.id}
             prize={item.prize}
-            isFavorite={item.isFavorite}
+            isFavorite={currentUser.favorite.includes(item.id)}
           />
         )}
       />

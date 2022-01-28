@@ -7,7 +7,7 @@ interface ICircleItem {
   id: number;
   circleSize?: number;
   name: string;
-  onClick: (id: number) => void;
+  onClick: (id: number, name: string) => void;
   iconName: string;
   iconSize?: number;
 }
@@ -26,7 +26,7 @@ const CircleItem = ({
       alignItems="center"
       justifyContent="center"
       padding="2">
-      <TouchableOpacity onPress={() => onClick(id)}>
+      <TouchableOpacity onPress={() => onClick(id, name)}>
         <Flex direction="column" alignItems="center" justifyContent="center">
           <Circle size={circleSize} bg="white" style={styles.BoxShadow}>
             <Icon

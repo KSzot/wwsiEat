@@ -16,14 +16,13 @@ const Header = ({navigation}: {navigation: any}) => {
         .get();
 
       setData(response.data()?.allCategory as any);
-      console.log(response.data());
     };
     fetchData();
   }, []);
-  const onHandleClick = (id: number) =>
+  const onHandleClick = (id: number, name: string) =>
     navigation.navigate('selectedCategory', {
       itemId: id,
-      name: 'Tu bedzie tytul',
+      name: name,
     });
   return (
     <Box marginTop="2">
@@ -53,7 +52,7 @@ const Header = ({navigation}: {navigation: any}) => {
           renderItem={({item}) => (
             <CircleItem
               name={item.name}
-              onClick={id => onHandleClick(id)}
+              onClick={(id, name) => onHandleClick(id, name)}
               iconName={item.iconName}
               id={item.id}
             />
