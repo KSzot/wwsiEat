@@ -48,12 +48,24 @@ const LoginScreen = ({navigation}: {navigation: any}) => {
       dispatch(loginUser(response2.data()));
 
       setIsLoading(false);
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [{name: 'Main'}],
+      navigation.dispatch({
+        ...CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Main',
+              state: {
+                routes: [
+                  {
+                    name: 'Home',
+                    params: {currentId: response.user.uid},
+                  },
+                ],
+              },
+            },
+          ],
         }),
-      );
+      });
     } catch (error: any) {
       setIsLoading(false);
 

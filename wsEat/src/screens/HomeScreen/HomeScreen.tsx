@@ -5,13 +5,11 @@ import firestore from '@react-native-firebase/firestore';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../store/actions/userActions/userActions';
 const HomeScreen = ({navigation, route}: {navigation: any; route: any}) => {
-  const currentUser = useSelector((store: RootStore) => store.User.user);
-
   const dispatch = useDispatch();
   React.useEffect(() => {
     const subscriber = firestore()
       .collection('Users')
-      .doc(currentUser.id)
+      .doc(route.params.currentId)
       .onSnapshot(documentSnapshot => {
         dispatch(loginUser(documentSnapshot.data()));
       });

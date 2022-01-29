@@ -54,7 +54,12 @@ const RegisterScreen = ({navigation}: {navigation: any}) => {
       await firestore()
         .collection('Users')
         .doc(response.user.uid)
-        .set({id: response.user.uid, name: data.name, email: data.email});
+        .set({
+          id: response.user.uid,
+          name: data.name,
+          email: data.email,
+          favorite: [],
+        });
       setIsLoading(false);
       onHandleSwitchToLoginScreen();
     } catch (error: any) {
