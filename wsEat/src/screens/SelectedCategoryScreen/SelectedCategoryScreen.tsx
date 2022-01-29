@@ -60,7 +60,9 @@ const SelectedCategoryScreen = ({
             imgName={item.imgName}
             id={item.id}
             prize={item.prize}
-            isFavorite={currentUser.favorite.includes(item.id)}
+            isFavorite={currentUser.favorite.find(
+              (el: any) => el.id === item.id,
+            )}
           />
         )}
       />

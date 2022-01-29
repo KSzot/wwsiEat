@@ -13,30 +13,32 @@ const DetailsMeal = ({route}: {route: any}) => {
   const firstUpdate = React.useRef(true);
   React.useEffect(() => {
     if (firstUpdate.current) {
-      setFavorite(currentUser.favorite.includes(item.id));
+      setFavorite(currentUser.favorite.find((el: any) => el.id === item.id));
       firstUpdate.current = false;
       return;
     }
     const updateFavoriteMeal = async () => {
-      const isFavorite = currentUser.favorite.includes(item.id);
+      const isFavorite = currentUser.favorite.find(
+        (el: any) => el.id === item.id,
+      );
 
-      if (favorite === true && isFavorite === false) {
+      if (favorite === true && !isFavorite) {
         await firestore()
           .collection('Users')
           .doc(currentUser.id)
           .set(
             {
-              favorite: firestore.FieldValue.arrayUnion(item.id),
+              favorite: firestore.FieldValue.arrayUnion(item),
             },
             {merge: true},
           );
       }
-      if (favorite === false && isFavorite === true) {
+      if (favorite === false && isFavorite) {
         await firestore()
           .collection('Users')
           .doc(currentUser.id)
           .update({
-            favorite: firestore.FieldValue.arrayRemove(item.id),
+            favorite: firestore.FieldValue.arrayRemove(item),
           });
       }
     };
@@ -48,6 +50,7 @@ const DetailsMeal = ({route}: {route: any}) => {
   const decreaseCount = () => {
     if (count > 1) setCount(prev => prev - 1);
   };
+
   return (
     <ScrollView bg="lightBlue.50">
       <Box style={styles.container}>
