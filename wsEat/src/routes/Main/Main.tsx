@@ -57,7 +57,7 @@ const Main = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'WWS EAT',
+          title: 'WS EAT',
         }}
       />
       <Tab.Screen
