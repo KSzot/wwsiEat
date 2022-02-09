@@ -1,16 +1,40 @@
 import * as React from 'react';
-import {ScrollView, Text, Box, Icon, Flex, Button} from 'native-base';
+import {
+  ScrollView,
+  Text,
+  Box,
+  Icon,
+  Flex,
+  Button,
+  Alert,
+  VStack,
+  HStack,
+} from 'native-base';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
 import {useDispatch, useSelector} from 'react-redux';
+import {addProdcutToBasket} from '../../store/actions/userActions/userActions';
 
 const DetailsMeal = ({route}: {route: any}) => {
   const {item} = route.params;
   const [favorite, setFavorite] = React.useState(false);
   const [count, setCount] = React.useState(1);
   const currentUser = useSelector((store: RootStore) => store.User.user);
+  const dispatch = useDispatch();
   const firstUpdate = React.useRef(true);
+  const [showAlert, setShowAlert] = React.useState(false);
+
+  React.useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (showAlert) {
+      timer = setTimeout(() => {
+        setShowAlert(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [showAlert]);
+
   React.useEffect(() => {
     if (firstUpdate.current) {
       setFavorite(currentUser.favorite.find((el: any) => el.id === item.id));
@@ -49,6 +73,12 @@ const DetailsMeal = ({route}: {route: any}) => {
   };
   const decreaseCount = () => {
     if (count > 1) setCount(prev => prev - 1);
+  };
+
+  const onHandleToBasket = () => {
+    setShowAlert(true);
+    const obj: Product = {...item, amount: count};
+    dispatch(addProdcutToBasket(obj));
   };
 
   return (
@@ -111,7 +141,7 @@ const DetailsMeal = ({route}: {route: any}) => {
               variant="outline"
               borderColor="success.500"
               borderRadius="xl"
-              onPress={() => {}}>
+              onPress={onHandleToBasket}>
               <Text fontSize="xl" color="success.500">
                 Do koszyka
               </Text>
@@ -139,6 +169,27 @@ const DetailsMeal = ({route}: {route: any}) => {
             />
           </Box>
         </TouchableOpacity>
+        {showAlert && (
+          <Alert
+            style={styles.BoxAlert}
+            w="90%"
+            maxW="400"
+            status="success"
+            variant="solid"
+            bottom="0"
+            left="0"
+            position="absolute"
+            zIndex="1000">
+            <VStack space={2} flexShrink={1} w="100%">
+              <HStack space={2} flexShrink={1}>
+                <Alert.Icon mt="1" />
+                <Text fontSize="md" color="white">
+                  Produkt dodany do koszyka
+                </Text>
+              </HStack>
+            </VStack>
+          </Alert>
+        )}
       </Box>
     </ScrollView>
   );
@@ -183,6 +234,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 4,
     right: 4,
+  },
+  BoxAlert: {
+    elevation: 20,
   },
 });
 

@@ -17,6 +17,7 @@ const HomeScreen = ({navigation, route}: {navigation: any; route: any}) => {
     // Stop listening for updates when no longer required
     return () => subscriber();
   }, []);
+
   return (
     <ScrollView flex="1" bg="lightBlue.50">
       <StatusBar backgroundColor="#22c55e" />
