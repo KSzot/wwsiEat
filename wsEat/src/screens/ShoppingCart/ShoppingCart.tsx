@@ -39,7 +39,7 @@ const ShoppingCart = ({navigation}: {navigation: any}) => {
           <Flex flexDirection="row" justifyContent="center">
             <Text fontSize="md">Do zaplaty: </Text>
             <Text fontSize="md" fontWeight="semibold">
-              {currentPrize} zl
+              {currentPrize.toFixed(2)} zl
             </Text>
           </Flex>
           <Button
