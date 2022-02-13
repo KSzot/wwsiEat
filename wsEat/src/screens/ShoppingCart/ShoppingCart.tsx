@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 const ShoppingCart = ({navigation}: {navigation: any}) => {
   const basket = useSelector((state: RootStore) => state.User.basket);
   const [currentPrize, setCurrentPrize] = React.useState(0);
+
   React.useEffect(() => {
     let sum = 0;
     basket.forEach(element => {

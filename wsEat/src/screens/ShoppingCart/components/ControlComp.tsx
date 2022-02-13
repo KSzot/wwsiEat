@@ -17,22 +17,19 @@ interface IControlComp {
   amount: number;
   name: string;
   prize: number;
+  onHandleDeleteProduct: () => void;
+  onHandleIncreaseProduct: () => void;
+  onHandleDecreaseProduct: () => void;
 }
 
-const ControlComp = ({amount, name, prize}: IControlComp) => {
-  const [count, setCount] = React.useState(1);
-
-  React.useEffect(() => {
-    setCount(amount);
-  }, []);
-
-  const increaseCount = () => {
-    setCount(prev => prev + 1);
-  };
-  const decreaseCount = () => {
-    if (count > 1) setCount(prev => prev - 1);
-  };
-
+const ControlComp = ({
+  amount,
+  name,
+  prize,
+  onHandleDeleteProduct,
+  onHandleIncreaseProduct,
+  onHandleDecreaseProduct,
+}: IControlComp) => {
   return (
     <Box style={styles.container}>
       <Flex direction="row" alignItems="center">
@@ -44,7 +41,7 @@ const ControlComp = ({amount, name, prize}: IControlComp) => {
           </Box>
         </Flex>
         <Flex marginLeft={50}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={onHandleDeleteProduct}>
             <Box
               justifyContent="center"
               alignSelf="center"
@@ -60,7 +57,10 @@ const ControlComp = ({amount, name, prize}: IControlComp) => {
       </Flex>
       <Flex direction="row" alignItems="center" marginTop="1">
         <Flex direction="row" alignItems="center">
-          <Button borderColor="black" variant="outline" onPress={decreaseCount}>
+          <Button
+            borderColor="black"
+            variant="outline"
+            onPress={onHandleDecreaseProduct}>
             <Icon as={<MaterialIcons name="remove" />} size={3} color="black" />
           </Button>
           <Text
@@ -68,15 +68,18 @@ const ControlComp = ({amount, name, prize}: IControlComp) => {
             fontWeight="semibold"
             textAlign="center"
             marginX="3">
-            {count}
+            {amount}
           </Text>
-          <Button borderColor="black" variant="outline" onPress={increaseCount}>
+          <Button
+            borderColor="black"
+            variant="outline"
+            onPress={onHandleIncreaseProduct}>
             <Icon as={<MaterialIcons name="add" />} size={3} color="black" />
           </Button>
         </Flex>
         <Box style={styles.sumBox}>
           <Text textAlign="center" color="success.500">
-            Suma: {Number(prize * count).toFixed(2)}
+            Suma: {Number(prize * amount).toFixed(2)}
           </Text>
         </Box>
       </Flex>
