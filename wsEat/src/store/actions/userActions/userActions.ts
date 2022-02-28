@@ -7,6 +7,7 @@ export enum UserActionTypes {
   DELETE_PRODUCT_FROM_BASKET = 'DELETE_PRODUCT_FROM_BASKET',
   INCREASE_PRODUCT_AMOUNT = 'INCREASE_PRODUCT_AMOUNT',
   DECREASE_PRODUCT_AMOUNT = 'DECREASE_PRODUCT_AMOUNT',
+  RESET_BASKET = 'RESET_BASKET',
 }
 
 interface LoginUserActionType {
@@ -88,9 +89,17 @@ export const decreaseAmountSelectedProduct =
     }
   };
 
+interface ResetBasket {
+  type: UserActionTypes.RESET_BASKET;
+}
+
+export const resetBasket = () => (dispatch: Dispatch) =>
+  dispatch({type: UserActionTypes.RESET_BASKET});
+
 export type UserActions =
   | LoginUserActionType
   | AddProdcutActionType
   | DeleteProductFromBasket
   | IncreaseAmountSelectedProduct
-  | DecreaseAmountSelectedProduct;
+  | DecreaseAmountSelectedProduct
+  | ResetBasket;

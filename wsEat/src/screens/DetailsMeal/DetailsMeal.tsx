@@ -37,7 +37,7 @@ const DetailsMeal = ({route}: {route: any}) => {
 
   React.useEffect(() => {
     if (firstUpdate.current) {
-      setFavorite(currentUser.favorite.find((el: any) => el.id === item.id));
+      setFavorite(currentUser?.favorite.find((el: any) => el.id === item.id));
       firstUpdate.current = false;
       return;
     }

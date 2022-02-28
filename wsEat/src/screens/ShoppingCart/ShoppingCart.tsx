@@ -2,12 +2,16 @@ import * as React from 'react';
 import {Box, Text, StatusBar, FlatList, Flex, Button} from 'native-base';
 import CardItem from './components/CardItem';
 import {SafeAreaView, View, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
+import {resetBasket} from '../../store/actions/userActions/userActions';
 
 const ShoppingCart = ({navigation}: {navigation: any}) => {
   const basket = useSelector((state: RootStore) => state.User.basket);
+  const currentUser = useSelector((store: RootStore) => store.User.user);
+  const [isLoading, setISLoading] = React.useState(false);
   const [currentPrize, setCurrentPrize] = React.useState(0);
-
+  const dispatch = useDispatch();
   React.useEffect(() => {
     let sum = 0;
     basket.forEach(element => {
@@ -15,6 +19,36 @@ const ShoppingCart = ({navigation}: {navigation: any}) => {
     });
     setCurrentPrize(sum);
   }, [basket]);
+
+  const onHandleSubmit = async () => {
+    setISLoading(true);
+    try {
+      const uid = await firestore().collection('Transaction').doc().id;
+      const obj = {
+        createdAt: new Date(),
+        basket: basket,
+        id: uid,
+      };
+      const response = await firestore()
+        .collection('Transaction')
+        .doc(currentUser.id)
+        .set(
+          {
+            transaction: firestore.FieldValue.arrayUnion(obj),
+          },
+          {merge: true},
+        );
+
+      setISLoading(false);
+      dispatch(resetBasket());
+      navigation.navigate('Home', {
+        basket: true,
+      });
+    } catch (error) {
+      setISLoading(false);
+      //obsluzyc error
+    }
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'lightBlue.50'}}>
       <StatusBar backgroundColor="#22c55e" />
@@ -47,7 +81,9 @@ const ShoppingCart = ({navigation}: {navigation: any}) => {
             size="lg"
             variant="outline"
             borderColor="success.500"
-            borderRadius="xl">
+            borderRadius="xl"
+            isLoading={isLoading}
+            onPress={onHandleSubmit}>
             <Text fontSize="md" color="success.500">
               Plac
             </Text>

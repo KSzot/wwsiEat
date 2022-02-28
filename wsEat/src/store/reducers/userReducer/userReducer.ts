@@ -49,6 +49,12 @@ export const userReducer = (
         basket: newArray,
       };
     }
+    case UserActionTypes.RESET_BASKET: {
+      return {
+        ...state,
+        basket: [],
+      };
+    }
     default:
       return state;
   }
