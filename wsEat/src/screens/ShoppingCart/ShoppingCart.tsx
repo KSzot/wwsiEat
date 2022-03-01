@@ -25,7 +25,7 @@ const ShoppingCart = ({navigation}: {navigation: any}) => {
     try {
       const uid = await firestore().collection('Transaction').doc().id;
       const obj = {
-        createdAt: new Date(),
+        createdAt: new Date().getTime(),
         basket: basket,
         id: uid,
       };
