@@ -10,7 +10,7 @@ import {
   VStack,
   HStack,
 } from 'native-base';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface IImageComp {
@@ -21,7 +21,7 @@ interface IImageComp {
 const ImageComp = ({favorite, imgName}: IImageComp) => {
   return (
     <Box style={styles.container}>
-      <Icon as={<MaterialIcons name={imgName} />} size={31} color="gray.400" />
+      <Image source={{uri: imgName}} style={{width: 80, height: 90}} />
       <Box style={styles.BoxImageAbsolute}>
         <Icon
           as={

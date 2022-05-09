@@ -31,10 +31,9 @@ const SelectedCategoryScreen = ({
       try {
         const response = await firestore()
           .collection('Category')
-          .doc(itemId)
+          .doc(itemId.trim())
           .get();
         setData(response.data()?.breakfast as any);
-        console.log(response.data());
       } catch (error) {}
     };
     fetchData();

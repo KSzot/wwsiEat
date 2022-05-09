@@ -41,7 +41,8 @@ export const renderPopular = [
   {
     id: 1,
     name: 'Spaggeti',
-    imgName: 'lunch-dining',
+    imgName:
+      'https://firebasestorage.googleapis.com/v0/b/wseat-dd4b7.appspot.com/o/parowki.jpg?alt=media&token=9ff9c02f-a46f-4a32-964c-63134cd65caa',
     prize: 22.9,
     isFavorite: true,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -49,7 +50,8 @@ export const renderPopular = [
   {
     id: 2,
     name: 'Schabowy',
-    imgName: 'restaurant',
+    imgName:
+      'https://firebasestorage.googleapis.com/v0/b/wseat-dd4b7.appspot.com/o/parowki.jpg?alt=media&token=9ff9c02f-a46f-4a32-964c-63134cd65caa',
     prize: 18.9,
     isFavorite: false,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -57,7 +59,8 @@ export const renderPopular = [
   {
     id: 3,
     name: 'Zapiekanki',
-    imgName: 'restaurant',
+    imgName:
+      'https://firebasestorage.googleapis.com/v0/b/wseat-dd4b7.appspot.com/o/parowki.jpg?alt=media&token=9ff9c02f-a46f-4a32-964c-63134cd65caa',
     prize: 18.9,
     isFavorite: false,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
@@ -65,7 +68,8 @@ export const renderPopular = [
   {
     id: 4,
     name: 'Hot dog',
-    imgName: 'restaurant',
+    imgName:
+      'https://firebasestorage.googleapis.com/v0/b/wseat-dd4b7.appspot.com/o/parowki.jpg?alt=media&token=9ff9c02f-a46f-4a32-964c-63134cd65caa',
     prize: 18.9,
     isFavorite: true,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',

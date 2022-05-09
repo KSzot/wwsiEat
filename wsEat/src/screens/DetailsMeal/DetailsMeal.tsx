@@ -10,7 +10,7 @@ import {
   VStack,
   HStack,
 } from 'native-base';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
 import {useDispatch, useSelector} from 'react-redux';
@@ -152,10 +152,9 @@ const DetailsMeal = ({route}: {route: any}) => {
         <TouchableOpacity
           style={styles.BoxShadow}
           onPress={() => setFavorite((prev: boolean) => !prev)}>
-          <Icon
-            as={<MaterialIcons name={item.imgName} />}
-            size={70}
-            color="gray.400"
+          <Image
+            source={{uri: item.imgName}}
+            style={{width: 250, height: 200}}
           />
           <Box style={styles.BoxImageAbsolute}>
             <Icon

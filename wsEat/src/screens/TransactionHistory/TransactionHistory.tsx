@@ -36,7 +36,7 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
 
     fetchData();
   }, [navigation, isFocused]);
-  console.log(data[0]?.createdAt);
+
   const dateOptions = {
     weekday: 'long',
     year: 'numeric',

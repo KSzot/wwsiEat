@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Flex, Text, Box, Icon} from 'native-base';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 interface ISquareItem {
   id: number;
@@ -28,11 +28,7 @@ const SquareItem = ({
       <TouchableOpacity onPress={() => onClick(id)}>
         <Flex direction="column" alignItems="center" justifyContent="center">
           <Box style={styles.BoxShadow}>
-            <Icon
-              as={<MaterialIcons name={imgName} />}
-              size={31}
-              color="gray.400"
-            />
+            <Image source={{uri: imgName}} style={{width: 100, height: 100}} />
             <Box style={styles.BoxAbsolute}>
               <Icon
                 as={
