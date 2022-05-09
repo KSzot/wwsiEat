@@ -28,7 +28,7 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
           .collection('Transaction')
           .doc(currentUser.id)
           .get();
-        setData(response?.data()?.transaction as any);
+        setData(response?.data()?.transaction.reverse() as any);
       } catch (error) {
         //wymaga obslugi
       }

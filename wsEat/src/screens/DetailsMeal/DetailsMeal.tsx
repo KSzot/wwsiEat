@@ -16,7 +16,7 @@ import firestore from '@react-native-firebase/firestore';
 import {useDispatch, useSelector} from 'react-redux';
 import {addProdcutToBasket} from '../../store/actions/userActions/userActions';
 
-const DetailsMeal = ({route}: {route: any}) => {
+const DetailsMeal = ({route, navigation}: {route: any; navigation: any}) => {
   const {item} = route.params;
   const [favorite, setFavorite] = React.useState(false);
   const [count, setCount] = React.useState(1);
@@ -24,6 +24,7 @@ const DetailsMeal = ({route}: {route: any}) => {
   const dispatch = useDispatch();
   const firstUpdate = React.useRef(true);
   const [showAlert, setShowAlert] = React.useState(false);
+  const [isLoading, setISLoading] = React.useState(false);
 
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -81,6 +82,36 @@ const DetailsMeal = ({route}: {route: any}) => {
     dispatch(addProdcutToBasket(obj));
   };
 
+  const onHandleBuyProduct = async () => {
+    setISLoading(true);
+    try {
+      const uid = await firestore().collection('Transaction').doc().id;
+      const obj = {
+        createdAt: new Date().getTime(),
+        basket: [{...item, amount: count}],
+        id: uid,
+      };
+      const response = await firestore()
+        .collection('Transaction')
+        .doc(currentUser.id)
+        .set(
+          {
+            transaction: firestore.FieldValue.arrayUnion(obj),
+          },
+          {merge: true},
+        );
+
+      setISLoading(false);
+
+      navigation.navigate('Home', {
+        basket: true,
+      });
+    } catch (error) {
+      setISLoading(false);
+      //obsluzyc error
+    }
+  };
+
   return (
     <ScrollView bg="lightBlue.50">
       <Box style={styles.container}>
@@ -131,7 +162,20 @@ const DetailsMeal = ({route}: {route: any}) => {
               bg="success.500"
               marginBottom="3"
               borderRadius="xl"
-              onPress={() => {}}>
+              onPress={onHandleBuyProduct}
+              isLoading={isLoading}
+              isLoadingText="Kup Teraz"
+              _loading={{
+                bg: 'success.600',
+                size: 'md',
+                borderRadius: 'xl',
+                _text: {
+                  color: 'white',
+                },
+              }}
+              _spinner={{
+                color: 'white',
+              }}>
               <Text fontSize="xl" color="white">
                 Kup Teraz
               </Text>
