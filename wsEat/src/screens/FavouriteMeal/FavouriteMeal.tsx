@@ -28,6 +28,9 @@ const FavouriteMeal = ({navigation}: {navigation: any}) => {
       <FlatList
         data={currentUser.favorite}
         numColumns={3}
+        ListEmptyComponent={() => (
+          <Text textAlign={'center'}>Brak ulubionych</Text>
+        )}
         keyExtractor={(item: any) => String(item.id)}
         renderItem={({item}: any) => (
           <SquareItem

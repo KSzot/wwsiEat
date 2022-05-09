@@ -56,7 +56,9 @@ const ShoppingCart = ({navigation}: {navigation: any}) => {
       <FlatList
         data={basket}
         numColumns={1}
-        ListEmptyComponent={() => <Text>Empty</Text>}
+        ListEmptyComponent={() => (
+          <Text textAlign="center">Koszyk jest pusty</Text>
+        )}
         ItemSeparatorComponent={() => (
           <View
             style={{

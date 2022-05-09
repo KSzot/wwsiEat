@@ -56,7 +56,9 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
       <FlatList
         data={data}
         numColumns={1}
-        ListEmptyComponent={() => <Text>Empty</Text>}
+        ListEmptyComponent={() => (
+          <Text textAlign={'center'}>Brak transakcji</Text>
+        )}
         ItemSeparatorComponent={() => (
           <View
             style={{
