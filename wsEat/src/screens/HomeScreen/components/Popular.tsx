@@ -1,12 +1,27 @@
 import * as React from 'react';
-import {Box, Text, FlatList, Flex, Icon} from 'native-base';
-import {TouchableOpacity} from 'react-native';
+import {Box, Text, FlatList, Flex} from 'native-base';
 import {SquareItem} from '../../../components';
-import {renderPopular} from '../mockData';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import firestore from '@react-native-firebase/firestore';
+
 const Popular = ({navigation}: {navigation: any}) => {
+  const [data, setData] = React.useState<any[]>([]);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await firestore()
+          .collection('Category')
+          .doc('EVttd7vN46C11dE0e1Bw')
+          .get();
+        console.log({response});
+        setData(response.data()?.popular as any);
+      } catch (error) {}
+    };
+    fetchData();
+  }, []);
+
   const onHandleClick = (id: number) => {
-    const item = renderPopular.find(el => el.id === id);
+    const item = data.find(el => el.id === id);
     navigation.navigate('detailsMeal', {item: item});
   };
   return (
@@ -31,7 +46,7 @@ const Popular = ({navigation}: {navigation: any}) => {
       </Flex>
       <FlatList
         horizontal
-        data={renderPopular}
+        data={data}
         keyExtractor={item => String(item.id)}
         renderItem={({item}) => (
           <SquareItem
