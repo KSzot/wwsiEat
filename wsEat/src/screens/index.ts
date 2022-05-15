@@ -8,3 +8,4 @@ export {default as Settings} from './Settings/Settings';
 export {default as TransactionHistory} from './TransactionHistory/TransactionHistory';
 export {default as DetailsMeal} from './DetailsMeal/DetailsMeal';
 export {default as SelectedCategoryScreen} from './SelectedCategoryScreen/SelectedCategoryScreen';
+export {PasswordScreen} from './Settings/Screens';

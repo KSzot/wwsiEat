@@ -5,6 +5,7 @@ import {
   FavouriteMeal,
   ShoppingCart,
   TransactionHistory,
+  PasswordScreen,
 } from '../../screens';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {Icon} from 'native-base';
@@ -81,6 +82,13 @@ const Main = () => {
           title: 'Ustawienia',
         }}
       />
+      {/* <Tab.Screen
+        name="Password"
+        component={PasswordScreen}
+        options={{
+          title: 'Zmiana hasła',
+        }}
+      /> */}
     </Tab.Navigator>
   );
 };
