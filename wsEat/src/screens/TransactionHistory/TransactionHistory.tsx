@@ -13,6 +13,8 @@ interface IDataType {
   basket: Product[];
   createdAt: String;
   id: string;
+  isRealize: boolean;
+  dateReceipt: number;
 }
 
 const TransactionHistory = ({navigation}: {navigation: any}) => {
@@ -21,6 +23,7 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [qrcode, setQrcode] = useState('');
   const isFocused = useIsFocused();
+  const [currentDate, setCurrentDate] = useState(new Date().getTime());
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,9 +47,10 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
     day: 'numeric',
     timeZoneName: 'long',
   };
-  const onHandleOpenModal = (value: string) => {
+  const onHandleOpenModal = (value: string, currentDate: number) => {
     setQrcode(value);
     setModalVisible(true);
+    setCurrentDate(currentDate);
   };
   const onHandleCloseModal = () => setModalVisible(false);
   return (
@@ -79,11 +83,18 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
               <Text fontSize={16} fontWeight={'semibold'}>
                 {moment(Number(item.createdAt)).format('DD MMM YYYY')}
               </Text>
-              <TouchableOpacity onPress={() => onHandleOpenModal(item.id)}>
+              {item.isRealize ? (
                 <Text fontSize={16} fontWeight={'semibold'}>
-                  Qr kod
+                  Odebrano
                 </Text>
-              </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => onHandleOpenModal(item.id, item.dateReceipt)}>
+                  <Text fontSize={16} fontWeight={'semibold'}>
+                    Qr kod
+                  </Text>
+                </TouchableOpacity>
+              )}
             </Box>
             <FlatList
               data={item.basket}
@@ -107,6 +118,7 @@ const TransactionHistory = ({navigation}: {navigation: any}) => {
         clicked={onHandleCloseModal}
         modalVisible={modalVisible}
         qrcode={qrcode}
+        date={currentDate}
       />
     </SafeAreaView>
   );

@@ -13,6 +13,11 @@ const Settings = ({navigation}: {navigation: any}) => {
           title="Hasło"
           clicked={() => navigation.navigate('Password')}
         />
+        <MenuOptions
+          iconName="logout"
+          title="Wyloguj"
+          clicked={() => navigation.navigate('Password')}
+        />
       </Box>
     </SafeAreaView>
   );

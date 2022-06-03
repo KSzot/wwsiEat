@@ -113,7 +113,7 @@ const DetailsMeal = ({route, navigation}: {route: any; navigation: any}) => {
   };
 
   return (
-    <ScrollView bg="lightBlue.50">
+    <ScrollView flex={1} bg={'lightBlue.50'}>
       <Box style={styles.container}>
         <Box style={styles.BoxAbsolute}>
           <Text fontSize={20} fontWeight="semibold" textAlign="center">

@@ -2,21 +2,31 @@ import React, {useState} from 'react';
 import {Alert, Modal, StyleSheet, View} from 'react-native';
 import {Text, Button} from 'native-base';
 import QRCode from 'react-native-qrcode-svg';
+import moment from 'moment';
 interface IModalSlideUp {
   clicked: () => void;
   qrcode: string;
   modalVisible: boolean;
+  date: number;
 }
-const ModalSlideUp = ({clicked, qrcode, modalVisible}: IModalSlideUp) => {
+const ModalSlideUp = ({clicked, qrcode, modalVisible, date}: IModalSlideUp) => {
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text
-            marginBottom={4}
-            fontWeight="semibold"
-            fontSize={20}
-            marginTop={10}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text fontWeight="semibold" fontSize={18} marginTop={10}>
+              Data odbioru:
+            </Text>
+            <Text
+              fontWeight="semibold"
+              fontSize={20}
+              marginLeft={1}
+              marginTop={10}>
+              {moment(date).format('DD MMM YYYY, HH:mm')}
+            </Text>
+          </View>
+          <Text marginBottom={4} fontWeight="semibold" fontSize={20}>
             Twoj numer
           </Text>
           <QRCode value={qrcode} size={260} />
