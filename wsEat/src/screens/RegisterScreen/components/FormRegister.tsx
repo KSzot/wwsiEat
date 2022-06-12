@@ -27,6 +27,7 @@ const FormRegister = ({onClick}: IFormRegister) => {
     handleSubmit,
     watch,
     control,
+    getValues,
     formState: {errors},
   } = useForm<Inputs>();
   return (
@@ -56,6 +57,9 @@ const FormRegister = ({onClick}: IFormRegister) => {
             name="name"
             rules={{required: 'Field is required'}}
           />
+          <FormControl.ErrorMessage>
+            Pole jest wymagane.{' '}
+          </FormControl.ErrorMessage>
         </FormControl>
         <FormControl isInvalid={'email' in errors}>
           <Controller
@@ -77,6 +81,9 @@ const FormRegister = ({onClick}: IFormRegister) => {
             name="email"
             rules={{required: 'Field is required'}}
           />
+          <FormControl.ErrorMessage>
+            Pole jest wymagane.
+          </FormControl.ErrorMessage>
         </FormControl>
         <FormControl isInvalid={'password' in errors}>
           <Controller
@@ -101,7 +108,7 @@ const FormRegister = ({onClick}: IFormRegister) => {
           />
 
           <FormControl.ErrorMessage>
-            Something is wrong.
+            Pole jest wymagane.
           </FormControl.ErrorMessage>
         </FormControl>
         <FormControl isInvalid={'repassword' in errors}>
@@ -123,11 +130,15 @@ const FormRegister = ({onClick}: IFormRegister) => {
               />
             )}
             name="repassword"
-            rules={{required: 'Field is required'}}
+            rules={{
+              required: 'Pole jest wymagane',
+              validate: val =>
+                val === getValues('password') || 'Hasła nie są identyczne',
+            }}
           />
 
           <FormControl.ErrorMessage>
-            Something is wrong.
+            {errors?.repassword?.message}
           </FormControl.ErrorMessage>
         </FormControl>
         <Flex flexDirection="row" justifyContent="flex-end">
